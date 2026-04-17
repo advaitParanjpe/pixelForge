@@ -1,0 +1,20 @@
+# Vivado generated
+.Xil/
+*.jou
+*.log
+*.str
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.gen/
+*.tmp/
+*.backup/
+*.wdb
+*.vcd
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
