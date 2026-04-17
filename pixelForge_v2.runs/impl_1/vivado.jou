@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Apr 15 21:03:49 2026
+# Process ID         : 19132
+# Current directory  : C:/FPGA_projects/pixelForge_v2/pixelForge_v2.runs/impl_1
+# Command line       : vivado.exe -log main.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source main.tcl -notrace
+# Log file           : C:/FPGA_projects/pixelForge_v2/pixelForge_v2.runs/impl_1/main.vdi
+# Journal file       : C:/FPGA_projects/pixelForge_v2/pixelForge_v2.runs/impl_1\vivado.jou
+# Running On         : Advaits_PC
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 5 7600 6-Core Processor              
+# CPU Frequency      : 3800 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 33433 MB
+# Swap memory        : 4563 MB
+# Total Virtual      : 37996 MB
+# Available Virtual  : 20481 MB
+#-----------------------------------------------------------
+source main.tcl -notrace
