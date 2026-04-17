@@ -44,13 +44,19 @@ module main(
     // internal signals from renderer
     logic [9:0] player_x;
     logic [9:0] player_y;
+    
+    logic [9:0] camera_x;
+    logic [9:0] camera_y;
+    
     logic [1:0] player_dir;
     logic [7:0] final_pixel_idx;
-   
+    logic [3:0] rawRed, rawGreen, rawBlue;
+
+ 
     // Instantiate the VGA timing generator
     vga_timing timing_inst (
         .clk(clk),
-        .rst(1'b0),
+        .rst(rst),
         .hsync(hsync),
         .vsync(vsync),
         .video_on(video_on),
@@ -59,10 +65,11 @@ module main(
     );
     
     // Instantiate the renderer
-    renderer square_inst (
-        .video_on(video_on),
+    renderer render_inst (
         .current_x(x),
         .current_y(y),
+        .camera_x(camera_x),
+        .camera_y(camera_y),
         .player_x(player_x),
         .player_y(player_y),
         .player_dir(player_dir),
@@ -70,9 +77,9 @@ module main(
     );
     
     // Instantiate the game_logic
-    game_logic move_square_inst (
+    game_logic game_inst (
         .clk(clk),
-        .rst(1'b0),
+        .rst(rst),
         .btnU(btnU),
         .btnD(btnD),
         .btnL(btnL),
@@ -85,14 +92,25 @@ module main(
     // instantiate palette_rom
     palette_rom palette_inst (
         .pixel_idx(final_pixel_idx),
-        .vgaRed(vgaRed),
-        .vgaGreen(vgaGreen),
-        .vgaBlue(vgaBlue)
+        .vgaRed(rawRed),
+        .vgaGreen(rawGreen),
+        .vgaBlue(rawBlue)
     );
     
+    
+    // instantiate camera controller
+    camera_controller cam_inst (
+        .player_x(player_x),
+        .player_y(player_y),
+        .camera_x(camera_x),
+        .camera_y(camera_y)
+    );
+        
     // Drive the board-facing sync outputs
     assign Hsync = hsync;
     assign Vsync = vsync;
-    
-    
+    assign vgaRed   = video_on ? rawRed   : 4'h0;
+    assign vgaGreen = video_on ? rawGreen : 4'h0;
+    assign vgaBlue  = video_on ? rawBlue  : 4'h0;
+
 endmodule

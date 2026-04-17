@@ -36,58 +36,50 @@ module palette_rom(
     localparam logic [7:0] player_right = 8'd6;
 
     always_comb begin
-        vgaRed   = 4'b0000;
-        vgaGreen = 4'b0000;
-        vgaBlue  = 4'b0000;
-        
+        vgaRed   = 4'h0;
+        vgaGreen = 4'h0;
+        vgaBlue  = 4'h0;
+    
         case (pixel_idx)
             grass: begin
-                vgaRed   = 4'b0001;
-                vgaGreen = 4'b1010;
-                vgaBlue  = 4'b0001;
+                vgaRed   = 4'h0;
+                vgaGreen = 4'hF;
+                vgaBlue  = 4'h0;
             end
-            
             water: begin
-                vgaRed   = 4'b0000;
-                vgaGreen = 4'b0011;
-                vgaBlue  = 4'b1111;
+                vgaRed   = 4'h0;
+                vgaGreen = 4'h0;
+                vgaBlue  = 4'hF;
             end
-            
             path: begin
-                // tan / sandy brown
-                vgaRed   = 4'b1100;
-                vgaGreen = 4'b1001;
-                vgaBlue  = 4'b0101;
+                vgaRed   = 4'hF;
+                vgaGreen = 4'hC;
+                vgaBlue  = 4'h0;
             end
-
             player_up: begin
-                vgaRed   = 4'b0000;
-                vgaGreen = 4'b1111;
-                vgaBlue  = 4'b0000;
+                vgaRed   = 4'hF;
+                vgaGreen = 4'hF;
+                vgaBlue  = 4'hF;
             end
-
             player_down: begin
-                vgaRed   = 4'b1111;
-                vgaGreen = 4'b1111;
-                vgaBlue  = 4'b0000;
+                vgaRed   = 4'hF;
+                vgaGreen = 4'h0;
+                vgaBlue  = 4'h0;
             end
-
             player_left: begin
-                vgaRed   = 4'b0000;
-                vgaGreen = 4'b1111;
-                vgaBlue  = 4'b1111;
+                vgaRed   = 4'h0;
+                vgaGreen = 4'hF;
+                vgaBlue  = 4'hF;
             end
-
             player_right: begin
-                vgaRed   = 4'b0000;
-                vgaGreen = 4'b0000;
-                vgaBlue  = 4'b1111;
+                vgaRed   = 4'hF;
+                vgaGreen = 4'h0;
+                vgaBlue  = 4'hF;
             end
-
             default: begin
-                vgaRed   = 4'b0000;
-                vgaGreen = 4'b0000;
-                vgaBlue  = 4'b0000;
+                vgaRed   = 4'h0;
+                vgaGreen = 4'h0;
+                vgaBlue  = 4'h0;
             end
         endcase
     end
