@@ -1,4 +1,4 @@
-# Vivado
+# Vivado generated
 .Xil/
 *.jou
 *.log
