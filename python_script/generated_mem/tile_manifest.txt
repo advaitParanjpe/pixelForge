@@ -1,0 +1,25 @@
+Tile ID mapping
+===============
+tile_id   0 -> grass (grass.png)
+tile_id   1 -> path (path.png)
+tile_id   2 -> water (water.png)
+
+tile_size         : 16x16
+pixels_per_tile   : 256
+palette_entries   : 9
+
+Palette
+=======
+palette_idx   0 -> rgb888=(70, 112, 31) rgb444=0x471
+palette_idx   1 -> rgb888=(39, 71, 9) rgb444=0x240
+palette_idx   2 -> rgb888=(143, 86, 59) rgb444=0x853
+palette_idx   3 -> rgb888=(122, 82, 63) rgb444=0x753
+palette_idx   4 -> rgb888=(82, 50, 35) rgb444=0x532
+palette_idx   5 -> rgb888=(25, 122, 143) rgb444=0x178
+palette_idx   6 -> rgb888=(42, 125, 143) rgb444=0x278
+palette_idx   7 -> rgb888=(51, 161, 184) rgb444=0x3AB
+palette_idx   8 -> rgb888=(255, 255, 255) rgb444=0xFFF
+
+Addressing
+==========
+addr = tile_id * (TILE_SIZE*TILE_SIZE) + tile_py * TILE_SIZE + tile_px

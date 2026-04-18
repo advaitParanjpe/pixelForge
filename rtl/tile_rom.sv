@@ -28,20 +28,26 @@ module tile_rom(
 );
 
     import world_pkg::*;
-
-    localparam logic [7:0] PIXEL_GRASS = 8'd0;
-    localparam logic [7:0] PIXEL_WATER = 8'd1;
-    localparam logic [7:0] PIXEL_PATH  = 8'd2;
+    
+    localparam int NUM_TILES       = 3;
+    localparam int PIXELS_PER_TILE = TILE_SIZE * TILE_SIZE;
+    localparam int MEM_DEPTH       = NUM_TILES * PIXELS_PER_TILE;
+    localparam int ADDR_W          = 10; // enough for 3*256 = 768 entries
+    
+    logic [7:0] tile_mem [0:MEM_DEPTH-1];
+    logic [ADDR_W-1:0] addr;
+    
+    initial begin
+        $readmemh("tile_pixels.mem", tile_mem);
+    end
 
     always_comb begin
-        pixel_idx = PIXEL_GRASS;
+        addr = tile_id * PIXELS_PER_TILE + tile_py * TILE_SIZE + tile_px;
 
-        case (tile_id)
-            TILE_GRASS: pixel_idx = PIXEL_GRASS;
-            TILE_WATER: pixel_idx = PIXEL_WATER;
-            TILE_PATH:  pixel_idx = PIXEL_PATH;
-            default:    pixel_idx = PIXEL_GRASS;
-        endcase
+        if (tile_id < NUM_TILES)
+            pixel_idx = tile_mem[addr];
+        else
+            pixel_idx = 8'd0;
     end
 
 endmodule

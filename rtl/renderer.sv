@@ -72,11 +72,10 @@ module renderer(
             (sample_world_y >= player_y) && (sample_world_y <= player_y + PLAYER_SIZE - 1)) begin
 
             case (player_dir)
-                DIR_UP: final_pixel_idx = 8'd3; // player_up
-                DIR_DOWN: final_pixel_idx = 8'd4; // player_down
-                DIR_LEFT: final_pixel_idx = 8'd5; // player_left
-                DIR_RIGHT: final_pixel_idx = 8'd6; // player_right
-                default: final_pixel_idx = 8'd3;
+                DIR_UP:    final_pixel_idx = 8'd252;
+                DIR_DOWN:  final_pixel_idx = 8'd253;
+                DIR_LEFT:  final_pixel_idx = 8'd254;
+                DIR_RIGHT: final_pixel_idx = 8'd255;
             endcase
         end
     end
