@@ -44,12 +44,9 @@ module main(
     // internal signals from renderer
     logic [9:0] player_x;
     logic [9:0] player_y;
-    
-
-    
-    //assign player_x = 10'd300;
-    //assign player_y = 10'd250;
-    
+    logic [1:0] player_dir;
+    logic [7:0] final_pixel_idx;
+   
     // Instantiate the VGA timing generator
     vga_timing timing_inst (
         .clk(clk),
@@ -68,9 +65,8 @@ module main(
         .current_y(y),
         .player_x(player_x),
         .player_y(player_y),
-        .vgaRed(vgaRed),
-        .vgaGreen(vgaGreen),
-        .vgaBlue(vgaBlue)
+        .player_dir(player_dir),
+        .final_pixel_idx(final_pixel_idx)
     );
     
     // Instantiate the game_logic
@@ -82,7 +78,16 @@ module main(
         .btnL(btnL),
         .btnR(btnR),
         .player_x(player_x),
-        .player_y(player_y)
+        .player_y(player_y),
+        .player_dir(player_dir)
+    );
+    
+    // instantiate palette_rom
+    palette_rom palette_inst (
+        .pixel_idx(final_pixel_idx),
+        .vgaRed(vgaRed),
+        .vgaGreen(vgaGreen),
+        .vgaBlue(vgaBlue)
     );
     
     // Drive the board-facing sync outputs
