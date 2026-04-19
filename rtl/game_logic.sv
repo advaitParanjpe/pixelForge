@@ -1,26 +1,6 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 17.04.2026 01:09:25
-// Design Name: 
-// Module Name: game_logic
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-  module game_logic(
+module game_logic(
     input  logic clk,
     input  logic rst,
     input  logic btnU,
@@ -35,14 +15,26 @@
     import world_pkg::*;
 
     logic [21:0] counter;
-    logic player_tick;
+    logic        player_tick;
 
     localparam logic [9:0] STEP = 10'd2;
 
-    // Proposed next position
-    logic [9:0] next_x, next_y;
+    typedef enum logic [0:0] {
+        ST_IDLE  = 1'b0,
+        ST_CHECK = 1'b1
+    } move_state_t;
 
-    // Corner tile coordinates for proposed position
+    move_state_t move_state;
+
+    // Stage 0: requested move computed from current position
+    logic        req_valid;
+    logic [9:0]  req_x, req_y;
+    logic [1:0]  req_dir;
+
+    // Stage 1: registered candidate position used for collision check
+    logic [9:0]  cand_x, cand_y;
+
+    // Corner tile coordinates for candidate position
     logic [5:0] tl_tile_x, tl_tile_y;
     logic [5:0] tr_tile_x, tr_tile_y;
     logic [5:0] bl_tile_x, bl_tile_y;
@@ -51,7 +43,9 @@
     // Tile IDs at the 4 corners
     tile_id_t tl_tile_id, tr_tile_id, bl_tile_id, br_tile_id;
 
-    logic move_blocked;
+    logic [9:0] cand_right;
+    logic [9:0] cand_bottom;
+    logic       move_blocked;
 
     always_ff @(posedge clk) begin
         if (rst) begin
@@ -63,44 +57,56 @@
 
     assign player_tick = (counter == 22'd4194303);
 
-    // Default proposed position = current position
+    // Priority matches original sequential logic: U > D > L > R
     always_comb begin
-        next_x = player_x;
-        next_y = player_y;
-    
+        req_valid = 1'b0;
+        req_x     = player_x;
+        req_y     = player_y;
+        req_dir   = player_dir;
+
         if (btnU) begin
-            if (player_y >= STEP)
-                next_y = player_y - STEP;
+            req_dir = DIR_UP;
+            if (player_y >= STEP) begin
+                req_y     = player_y - STEP;
+                req_valid = 1'b1;
+            end
         end else if (btnD) begin
-            if (player_y + PLAYER_SIZE + STEP <= MAP_PIX_H)
-                next_y = player_y + STEP;
+            req_dir = DIR_DOWN;
+            if (player_y + PLAYER_SIZE + STEP <= MAP_PIX_H) begin
+                req_y     = player_y + STEP;
+                req_valid = 1'b1;
+            end
         end else if (btnL) begin
-            if (player_x >= STEP)
-                next_x = player_x - STEP;
+            req_dir = DIR_LEFT;
+            if (player_x >= STEP) begin
+                req_x     = player_x - STEP;
+                req_valid = 1'b1;
+            end
         end else if (btnR) begin
-            if (player_x + PLAYER_SIZE + STEP <= MAP_PIX_W)
-                next_x = player_x + STEP;
+            req_dir = DIR_RIGHT;
+            if (player_x + PLAYER_SIZE + STEP <= MAP_PIX_W) begin
+                req_x     = player_x + STEP;
+                req_valid = 1'b1;
+            end
         end
     end
 
-    logic [9:0] next_right;
-    logic [9:0] next_bottom;
-    
-    assign next_right  = next_x + PLAYER_SIZE - 1;
-    assign next_bottom = next_y + PLAYER_SIZE - 1;
-    
-    assign tl_tile_x = next_x[9:4];
-    assign tl_tile_y = next_y[9:4];
-    
-    assign tr_tile_x = next_right[9:4];
-    assign tr_tile_y = next_y[9:4];
-    
-    assign bl_tile_x = next_x[9:4];
-    assign bl_tile_y = next_bottom[9:4];
-    
-    assign br_tile_x = next_right[9:4];
-    assign br_tile_y = next_bottom[9:4];
-    // Query map at each corner
+    // Collision check uses registered candidate position, not the live player regs.
+    assign cand_right  = cand_x + PLAYER_SIZE - 1;
+    assign cand_bottom = cand_y + PLAYER_SIZE - 1;
+
+    assign tl_tile_x = cand_x[9:4];
+    assign tl_tile_y = cand_y[9:4];
+
+    assign tr_tile_x = cand_right[9:4];
+    assign tr_tile_y = cand_y[9:4];
+
+    assign bl_tile_x = cand_x[9:4];
+    assign bl_tile_y = cand_bottom[9:4];
+
+    assign br_tile_x = cand_right[9:4];
+    assign br_tile_y = cand_bottom[9:4];
+
     tilemap_rom map_tl (
         .tile_x(tl_tile_x),
         .tile_y(tl_tile_y),
@@ -135,25 +141,29 @@
         if (rst) begin
             player_x   <= 10'd50;
             player_y   <= 10'd50;
-            player_dir <= 2'd3;
-        end else if (player_tick) begin
-            if (btnU) begin
-                player_dir <= DIR_UP;
-                if ((player_y >= STEP) && !move_blocked)
-                    player_y <= next_y;
-            end else if (btnD) begin
-                player_dir <= DIR_DOWN;
-                if ((player_y + PLAYER_SIZE + STEP <= MAP_PIX_H) && !move_blocked)
-                    player_y <= next_y;
-            end else if (btnL) begin
-                player_dir <= DIR_LEFT;
-                if ((player_x >= STEP) && !move_blocked)
-                    player_x <= next_x;
-            end else if (btnR) begin
-                player_dir <= DIR_RIGHT;
-                if ((player_x + PLAYER_SIZE + STEP <= MAP_PIX_W) && !move_blocked)
-                    player_x <= next_x;
-            end
+            player_dir <= DIR_RIGHT;
+            cand_x     <= 10'd50;
+            cand_y     <= 10'd50;
+            move_state <= ST_IDLE;
+        end else begin
+            case (move_state)
+                ST_IDLE: begin
+                    if (player_tick && req_valid) begin
+                        cand_x     <= req_x;
+                        cand_y     <= req_y;
+                        player_dir <= req_dir;
+                        move_state <= ST_CHECK;
+                    end
+                end
+
+                ST_CHECK: begin
+                    if (!move_blocked) begin
+                        player_x <= cand_x;
+                        player_y <= cand_y;
+                    end
+                    move_state <= ST_IDLE;
+                end
+            endcase
         end
     end
 

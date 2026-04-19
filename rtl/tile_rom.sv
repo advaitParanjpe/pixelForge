@@ -29,10 +29,10 @@ module tile_rom(
 
     import world_pkg::*;
     
-    localparam int NUM_TILES       = 3;
+    localparam int NUM_TILES       = 24;
     localparam int PIXELS_PER_TILE = TILE_SIZE * TILE_SIZE;
     localparam int MEM_DEPTH       = NUM_TILES * PIXELS_PER_TILE;
-    localparam int ADDR_W          = 10; // enough for 3*256 = 768 entries
+    localparam int ADDR_W = $clog2(MEM_DEPTH);
     
     logic [7:0] tile_mem [0:MEM_DEPTH-1];
     logic [ADDR_W-1:0] addr;

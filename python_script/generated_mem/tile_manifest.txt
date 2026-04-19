@@ -1,24 +1,56 @@
 Tile ID mapping
 ===============
-tile_id   0 -> grass (grass.png)
-tile_id   1 -> path (path.png)
-tile_id   2 -> water (water.png)
+tile_id   0 -> grass (tile_assets\grass.png)
+tile_id   1 -> path_v (tile_assets\path_v.png)
+tile_id   2 -> path_h (tile_assets\path_h.png)
+tile_id   3 -> path_dr (tile_assets\path_DR(1).png)
+tile_id   4 -> path_ur (tile_assets\path_UR(2).png)
+tile_id   5 -> path_rd (tile_assets\path_RD(3).png)
+tile_id   6 -> path_ru (tile_assets\path_RU(4).png)
+tile_id   7 -> water_v (tile_assets\water_v.png)
+tile_id   8 -> water_h (tile_assets\water_h.png)
+tile_id   9 -> water_dr (tile_assets\water_DR(1).png)
+tile_id  10 -> water_ur (tile_assets\water_UR(2).png)
+tile_id  11 -> water_rd (tile_assets\water_RD(3).png)
+tile_id  12 -> water_ru (tile_assets\water_RU(4).png)
+tile_id  13 -> bridge_v (tile_assets\bridge_v.png)
+tile_id  14 -> bridge_h (tile_assets\bridge_h.png)
+tile_id  15 -> tree (tile_assets\tree.png)
+tile_id  16 -> ramp_u (tile_assets\ramp_u.png)
+tile_id  17 -> wall_vl (tile_assets\wall_vl.png)
+tile_id  18 -> wall_vr (tile_assets\wall_vr.png)
+tile_id  19 -> wall_h (tile_assets\wall_h.png)
+tile_id  20 -> wall_dl (tile_assets\wall_DL.png)
+tile_id  21 -> wall_dr (tile_assets\wall_DR.png)
+tile_id  22 -> key (tile_assets\key.png)
+tile_id  23 -> endpoint (tile_assets\endpoint.png)
 
 tile_size         : 16x16
 pixels_per_tile   : 256
-palette_entries   : 9
+palette_entries   : 20
 
 Palette
 =======
-palette_idx   0 -> rgb888=(70, 112, 31) rgb444=0x471
-palette_idx   1 -> rgb888=(39, 71, 9) rgb444=0x240
-palette_idx   2 -> rgb888=(143, 86, 59) rgb444=0x853
-palette_idx   3 -> rgb888=(122, 82, 63) rgb444=0x753
-palette_idx   4 -> rgb888=(82, 50, 35) rgb444=0x532
-palette_idx   5 -> rgb888=(25, 122, 143) rgb444=0x178
-palette_idx   6 -> rgb888=(42, 125, 143) rgb444=0x278
-palette_idx   7 -> rgb888=(51, 161, 184) rgb444=0x3AB
-palette_idx   8 -> rgb888=(255, 255, 255) rgb444=0xFFF
+palette_idx   0 -> rgb888=(143, 151, 74) rgb444=0x894
+palette_idx   1 -> rgb888=(193, 204, 102) rgb444=0xCC6
+palette_idx   2 -> rgb888=(61, 41, 37) rgb444=0x322
+palette_idx   3 -> rgb888=(112, 57, 31) rgb444=0x731
+palette_idx   4 -> rgb888=(51, 161, 184) rgb444=0x3AB
+palette_idx   5 -> rgb888=(255, 255, 255) rgb444=0xFFF
+palette_idx   6 -> rgb888=(89, 86, 82) rgb444=0x555
+palette_idx   7 -> rgb888=(51, 49, 46) rgb444=0x332
+palette_idx   8 -> rgb888=(153, 145, 135) rgb444=0x998
+palette_idx   9 -> rgb888=(184, 174, 161) rgb444=0xBAA
+palette_idx  10 -> rgb888=(133, 129, 123) rgb444=0x887
+palette_idx  11 -> rgb888=(75, 105, 47) rgb444=0x462
+palette_idx  12 -> rgb888=(96, 143, 52) rgb444=0x683
+palette_idx  13 -> rgb888=(41, 23, 20) rgb444=0x211
+palette_idx  14 -> rgb888=(102, 61, 42) rgb444=0x632
+palette_idx  15 -> rgb888=(214, 199, 199) rgb444=0xDCC
+palette_idx  16 -> rgb888=(61, 38, 27) rgb444=0x321
+palette_idx  17 -> rgb888=(102, 57, 49) rgb444=0x633
+palette_idx  18 -> rgb888=(251, 242, 54) rgb444=0xFF3
+palette_idx  19 -> rgb888=(172, 50, 50) rgb444=0xA33
 
 Addressing
 ==========

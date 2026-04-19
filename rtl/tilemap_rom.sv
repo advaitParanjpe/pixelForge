@@ -21,28 +21,24 @@
 
 
 module tilemap_rom(
-    input logic [5:0] tile_x,
-    input logic [5:0] tile_y,
+    input  logic [5:0] tile_x,
+    input  logic [5:0] tile_y,
     output world_pkg::tile_id_t tile_id
-    );
-    
+);
+
     import world_pkg::*;
 
-    always_comb begin
-        tile_id = TILE_GRASS; //otherwise grass
-        
-        if (tile_y == 6'd13) begin //path
-            tile_id = TILE_PATH;
-        end
-        
-        if (tile_y == 6'd16) begin // river
-            tile_id = TILE_WATER;
-        end
-        
-        if (tile_x == 6'd20) begin // river
-            tile_id = TILE_PATH;
-        end
+    localparam int MAP_DEPTH = MAP_TILES_W * MAP_TILES_H;
+    logic [7:0] map_mem [0:MAP_DEPTH-1];
+    logic [11:0] addr;
 
+    initial begin
+        $readmemh("tilemap.mem", map_mem);
+    end
+
+    always_comb begin
+        addr = tile_y * MAP_TILES_W + tile_x;
+        tile_id = tile_id_t'(map_mem[addr]);
     end
 
 endmodule

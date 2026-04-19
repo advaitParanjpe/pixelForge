@@ -1,18 +1,40 @@
-// palette_idx 0: rgb888=(70, 112, 31)
-471
-// palette_idx 1: rgb888=(39, 71, 9)
-240
-// palette_idx 2: rgb888=(143, 86, 59)
-853
-// palette_idx 3: rgb888=(122, 82, 63)
-753
-// palette_idx 4: rgb888=(82, 50, 35)
-532
-// palette_idx 5: rgb888=(25, 122, 143)
-178
-// palette_idx 6: rgb888=(42, 125, 143)
-278
-// palette_idx 7: rgb888=(51, 161, 184)
+// palette_idx 0: rgb888=(143, 151, 74)
+894
+// palette_idx 1: rgb888=(193, 204, 102)
+CC6
+// palette_idx 2: rgb888=(61, 41, 37)
+322
+// palette_idx 3: rgb888=(112, 57, 31)
+731
+// palette_idx 4: rgb888=(51, 161, 184)
 3AB
-// palette_idx 8: rgb888=(255, 255, 255)
+// palette_idx 5: rgb888=(255, 255, 255)
 FFF
+// palette_idx 6: rgb888=(89, 86, 82)
+555
+// palette_idx 7: rgb888=(51, 49, 46)
+332
+// palette_idx 8: rgb888=(153, 145, 135)
+998
+// palette_idx 9: rgb888=(184, 174, 161)
+BAA
+// palette_idx 10: rgb888=(133, 129, 123)
+887
+// palette_idx 11: rgb888=(75, 105, 47)
+462
+// palette_idx 12: rgb888=(96, 143, 52)
+683
+// palette_idx 13: rgb888=(41, 23, 20)
+211
+// palette_idx 14: rgb888=(102, 61, 42)
+632
+// palette_idx 15: rgb888=(214, 199, 199)
+DCC
+// palette_idx 16: rgb888=(61, 38, 27)
+321
+// palette_idx 17: rgb888=(102, 57, 49)
+633
+// palette_idx 18: rgb888=(251, 242, 54)
+FF3
+// palette_idx 19: rgb888=(172, 50, 50)
+A33
