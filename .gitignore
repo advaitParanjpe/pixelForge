@@ -13,6 +13,7 @@
 *.backup/
 *.wdb
 *.vcd
+*.xpr
 
 # OS / editor
 .DS_Store
